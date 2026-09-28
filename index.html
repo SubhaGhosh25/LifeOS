@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08152f" />
+  <title>LifeOS — Personal Productivity</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="dark" data-accent="purple">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">✦</div>
+        <div>
+          <strong>LifeOS</strong>
+          <span>Organize your life.</span>
+        </div>
+        <button class="icon-btn mobile-close" id="closeSidebar">×</button>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-page="tasks"><span>✓</span> Tasks</button>
+        <button class="nav-item" data-page="routine"><span>◌</span> Routine</button>
+        <button class="nav-item" data-page="habits"><span>◉</span> Habits</button>
+        <button class="nav-item" data-page="focus"><span>◷</span> Focus</button>
+        <button class="nav-item" data-page="goals"><span>◇</span> Goals</button>
+        <button class="nav-item" data-page="calendar"><span>▦</span> Calendar</button>
+        <button class="nav-item" data-page="notes"><span>▤</span> Notes</button>
+        <button class="nav-item" data-page="journal"><span>▥</span> Journal</button>
+        <button class="nav-item" data-page="statistics"><span>▥</span> Statistics</button>
+        <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="mini-brand">
+          <div class="mini-logo">✦</div>
+          <div><b>LifeOS</b><small>One day at a time.</small></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="openSidebar">☰</button>
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="globalSearch" type="search" placeholder="Search tasks, notes, goals..." />
+          <kbd>Ctrl K</kbd>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="notificationBtn" title="Notifications">♢<i class="notification-dot"></i></button>
+          <button class="icon-btn" id="quickTheme" title="Change theme">☼</button>
+          <div class="profile">
+            <div class="avatar">S</div>
+            <span>Subhajit</span>
+            <button class="icon-btn small">⌄</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="page active" id="page-dashboard">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow" id="heroDate"></p>
+            <h1 id="greeting">Good morning, Subhajit 👋</h1>
+            <p>Let's make today productive!</p>
+          </div>
+          <div class="hero-orb"></div>
+          <div class="mountain mountain-1"></div>
+          <div class="mountain mountain-2"></div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="ring" id="progressRing"><span id="progressPercent">0%</span></div>
+            <div><span class="stat-label">Today's Progress</span><strong id="progressText">0 / 0</strong><small>tasks completed</small></div>
+          </div>
+          <div class="stat-card cyan">
+            <div class="stat-icon">◷</div>
+            <div><span class="stat-label">Focus Time</span><strong id="focusTotal">0m</strong><small id="focusSessions">0 sessions</small></div>
+          </div>
+          <div class="stat-card pink">
+            <div class="stat-icon">♨</div>
+            <div><span class="stat-label">Current Streak</span><strong id="streakValue">0 days</strong><small>Keep it going!</small></div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon">▥</div>
+            <div><span class="stat-label">Productivity Score</span><strong id="scoreValue">0 / 100</strong><small id="scoreMessage">Start your day!</small></div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel tasks-panel">
+            <div class="panel-head"><h2>▣ Today's Tasks</h2><button class="link-btn" data-page-link="tasks">View All →</button></div>
+            <div id="dashboardTasks" class="task-list"></div>
+          </section>
+
+          <section class="panel focus-panel">
+            <div class="panel-head"><h2>◷ Focus Timer</h2><button class="link-btn" data-page-link="focus">Full screen →</button></div>
+            <div class="timer-tabs">
+              <button class="timer-mode active" data-minutes="25">Pomodoro</button>
+              <button class="timer-mode" data-minutes="5">Short Break</button>
+              <button class="timer-mode" data-minutes="15">Long Break</button>
+            </div>
+            <div class="timer-ring"><div><strong id="timerDisplay">25:00</strong><span>Focus Time</span></div></div>
+            <div class="timer-controls">
+              <button class="primary-btn" id="timerStart">▶ Start</button>
+              <button class="circle-btn" id="timerReset">↻</button>
+            </div>
+            <select class="select" id="timerTask"><option value="">No current task</option></select>
+          </section>
+
+          <section class="panel calendar-panel">
+            <div class="panel-head"><h2>Calendar</h2><div><button class="icon-btn small" id="prevMonth">‹</button><button class="icon-btn small" id="nextMonth">›</button></div></div>
+            <div class="calendar-title" id="calendarTitle"></div>
+            <div class="calendar-week"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+            <div class="calendar-days" id="calendarDays"></div>
+            <div class="schedule">
+              <div class="panel-subhead">Today's Schedule <button class="link-btn" data-page-link="routine">View All →</button></div>
+              <div id="scheduleList"></div>
+            </div>
+          </section>
+
+          <section class="panel habits-panel">
+            <div class="panel-head"><h2>♥ Habits</h2><button class="link-btn" data-page-link="habits">View All →</button></div>
+            <div id="habitGrid"></div>
+          </section>
+
+          <section class="panel goals-panel">
+            <div class="panel-head"><h2>◇ Goals</h2><button class="link-btn" data-page-link="goals">View All →</button></div>
+            <div id="goalList"></div>
+          </section>
+
+          <section class="panel quick-panel">
+            <div class="panel-head"><h2>⚡ Quick Actions</h2></div>
+            <div class="quick-grid">
+              <button class="quick blue" data-action="add-task"><b>＋</b><span>Add Task</span></button>
+              <button class="quick purple" data-action="focus"><b>◷</b><span>Start Focus</span></button>
+              <button class="quick green" data-action="add-habit"><b>◉</b><span>Add Habit</span></button>
+              <button class="quick orange" data-action="add-goal"><b>◇</b><span>Add Goal</span></button>
+              <button class="quick blue" data-action="add-note"><b>▤</b><span>Add Note</span></button>
+              <button class="quick pink" data-action="journal"><b>✎</b><span>Journal</span></button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="page" id="page-tasks">
+        <div class="page-heading"><div><p class="eyebrow">Productivity</p><h1>Tasks</h1><p>Plan what matters and get it done.</p></div><button class="primary-btn" data-action="add-task">＋ Add Task</button></div>
+        <div class="toolbar"><div class="segmented" id="taskFilters"><button class="active" data-filter="all">All</button><button data-filter="active">Active</button><button data-filter="completed">Completed</button></div><select class="select compact" id="taskCategoryFilter"><option value="all">All categories</option><option>Study</option><option>Health</option><option>Personal</option><option>College</option></select></div>
+        <div class="panel"><div id="allTasks" class="full-list"></div></div>
+      </section>
+
+      <section class="page" id="page-routine">
+        <div class="page-heading"><div><p class="eyebrow">Daily plan</p><h1>Routine</h1><p>Build a schedule that fits your real day.</p></div><button class="primary-btn" data-action="add-routine">＋ Add Routine</button></div>
+        <div class="panel"><div id="routineList" class="routine-list"></div></div>
+      </section>
+
+      <section class="page" id="page-habits">
+        <div class="page-heading"><div><p class="eyebrow">Consistency</p><h1>Habits</h1><p>Small actions become long-term results.</p></div><button class="primary-btn" data-action="add-habit">＋ Add Habit</button></div>
+        <div id="allHabits" class="cards-grid"></div>
+      </section>
+
+      <section class="page" id="page-focus">
+        <div class="page-heading"><div><p class="eyebrow">Deep work</p><h1>Focus</h1><p>One task. One timer. Full attention.</p></div></div>
+        <div class="focus-large panel">
+          <div class="timer-tabs large"><button class="timer-mode active" data-minutes="25">Pomodoro</button><button class="timer-mode" data-minutes="5">Short Break</button><button class="timer-mode" data-minutes="15">Long Break</button></div>
+          <div class="timer-ring large-ring"><div><strong id="timerDisplayLarge">25:00</strong><span>Focus Time</span></div></div>
+          <div class="timer-controls"><button class="primary-btn" id="timerStartLarge">▶ Start</button><button class="circle-btn" id="timerResetLarge">↻</button></div>
+          <select class="select" id="timerTaskLarge"><option value="">No current task</option></select>
+          <div class="focus-history" id="focusHistory"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-goals">
+        <div class="page-heading"><div><p class="eyebrow">Direction</p><h1>Goals</h1><p>Turn big ideas into measurable progress.</p></div><button class="primary-btn" data-action="add-goal">＋ Add Goal</button></div>
+        <div id="allGoals" class="cards-grid"></div>
+      </section>
+
+      <section class="page" id="page-calendar">
+        <div class="page-heading"><div><p class="eyebrow">Plan ahead</p><h1>Calendar</h1><p>See your days and upcoming routine items.</p></div></div>
+        <div class="panel calendar-large"><div class="calendar-title" id="calendarTitleLarge"></div><div class="calendar-week"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-days large-days" id="calendarDaysLarge"></div></div>
+      </section>
+
+      <section class="page" id="page-notes">
+        <div class="page-heading"><div><p class="eyebrow">Capture ideas</p><h1>Notes</h1><p>Keep useful thoughts in one place.</p></div><button class="primary-btn" data-action="add-note">＋ Add Note</button></div>
+        <div id="allNotes" class="notes-grid"></div>
+      </section>
+
+      <section class="page" id="page-journal">
+        <div class="page-heading"><div><p class="eyebrow">Reflection</p><h1>Journal</h1><p>Write a few lines about your day.</p></div></div>
+        <div class="journal-layout"><div class="panel"><h2>Today's entry</h2><textarea id="journalText" class="journal-text" placeholder="How was your day? What went well? What will you improve tomorrow?"></textarea><button class="primary-btn" id="saveJournal">Save Entry</button></div><div class="panel"><h2>Recent entries</h2><div id="journalHistory"></div></div></div>
+      </section>
+
+      <section class="page" id="page-statistics">
+        <div class="page-heading"><div><p class="eyebrow">Insights</p><h1>Statistics</h1><p>Understand how you spend your time.</p></div></div>
+        <div class="stats-detail-grid"><div class="panel big-number"><span>Tasks completed</span><strong id="statCompleted">0</strong></div><div class="panel big-number"><span>Focus minutes</span><strong id="statFocus">0</strong></div><div class="panel big-number"><span>Active habits</span><strong id="statHabits">0</strong></div><div class="panel big-number"><span>Goals</span><strong id="statGoals">0</strong></div></div>
+        <div class="panel chart-panel"><h2>Weekly activity</h2><div class="bar-chart" id="barChart"></div></div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-heading"><div><p class="eyebrow">Personalize</p><h1>Settings</h1><p>Make LifeOS feel like your own.</p></div></div>
+        <div class="settings-grid">
+          <div class="panel"><h2>Appearance</h2><label>Theme</label><div class="theme-options" id="themeOptions"><button data-theme-choice="dark">Dark</button><button data-theme-choice="light">Light</button><button data-theme-choice="ocean">Ocean</button><button data-theme-choice="forest">Forest</button><button data-theme-choice="sakura">Sakura</button><button data-theme-choice="sunset">Sunset</button><button data-theme-choice="midnight">Midnight</button></div><label>Accent</label><div class="accent-options" id="accentOptions"><button data-accent-choice="purple"></button><button data-accent-choice="blue"></button><button data-accent-choice="cyan"></button><button data-accent-choice="green"></button><button data-accent-choice="orange"></button><button data-accent-choice="pink"></button></div></div>
+          <div class="panel"><h2>Data</h2><p class="muted">Your current version stores data in this browser using localStorage.</p><button class="secondary-btn" id="exportData">Export JSON</button><button class="secondary-btn" id="resetData">Reset demo data</button></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-head"><h2 id="modalTitle">Add</h2><button class="icon-btn" id="modalClose">×</button></div>
+      <form id="modalForm"></form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
